@@ -23,8 +23,14 @@ async def GetGroupCode(message: types.Message):
     
     json_data = response.json()
     text_our = json_data['Our']
-    probability_our = '{:.3f}'.format(float(text_our[0][2]))
-    text_our_template1st = f'{text_our[0][0]}:{text_our[0][1]} \nВероятность: {probability_our}'
+    probability_our = '{:.3f}'.format(float(text_our[0]['Probability'])*100)
+    if text_our[0]['valid']:
+        till =''
+    else:
+        till = text_our[0]['till']
+    Ourid = text_our[0]['id']
+    Ourlabel = text_our[0]['label']
+    text_our_template1st = f'{Ourid}:{Ourlabel} \nВероятность: {probability_our} {till}'
 
     text_OuterService = json_data['OuterService']
     if len(text_OuterService) != 0:
